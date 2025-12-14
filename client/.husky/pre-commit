@@ -1,0 +1,2 @@
+npm run lint
+# Hoặc nếu muốn format luôn: npx lint-staged
