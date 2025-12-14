@@ -1,53 +1,42 @@
-// menu.config.jsx
-import { LayoutDashboard, User, Users, ShoppingCart, Store } from 'lucide-react';
+import { LayoutDashboard, Users, Store, User } from 'lucide-react';
 
 export const adminMenu = [
   // ===== DASHBOARD =====
   {
     type: 'group',
-    label: 'Dashboard',
+    label: 'Tổng quan',
   },
   {
     key: '/admin',
     icon: <LayoutDashboard size={18} />,
-    label: 'Dashboard',
+    label: 'Bảng điều khiển',
   },
 
-  // ===== USER MANAGEMENT =====
+  // ===== USER MANAGEMENT (Người dùng) =====
   {
     type: 'group',
-    label: 'User Management',
+    label: 'Quản lý Người dùng',
   },
   {
     key: '/admin/users',
     icon: <Users size={18} />,
-    label: 'Users',
+    label: 'Danh sách người dùng',
   },
+  // Giữ lại Profile cá nhân admin
   {
     key: '/admin/profile',
     icon: <User size={18} />,
-    label: 'My Profile',
+    label: 'Tài khoản của tôi',
   },
 
-  // ===== CART / ORDER =====
+  // ===== SHOP MANAGEMENT (Cửa hàng - Mới thêm) =====
   {
     type: 'group',
-    label: 'Cart Management',
+    label: 'Quản lý Cửa hàng',
   },
   {
-    key: '/admin/cart',
-    icon: <ShoppingCart size={18} />,
-    label: 'Carts',
-  },
-
-  // ===== SHOP =====
-  {
-    type: 'group',
-    label: 'Shop',
-  },
-  {
-    key: '/admin/shop/dashboard',
+    key: '/admin/shops', // Route này sẽ map với trang ShopListPage sắp tạo
     icon: <Store size={18} />,
-    label: 'Shop Dashboard',
+    label: 'Danh sách cửa hàng',
   },
 ];

@@ -62,4 +62,20 @@ const authentication = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { createTokenPair, authentication };
+const checkRole = (...allowedRoles) => {
+  return (req, res, next) => {
+    if (!req.user || !req.user.roles) {
+      throw new ForbiddenError("User roles not found");
+    }
+
+    // req.user.roles lấy từ JWT payload (được decode trong middleware authentication)
+    const hasRole = req.user.roles.some((role) => allowedRoles.includes(role));
+
+    if (!hasRole) {
+      throw new ForbiddenError("Access denied: Insufficient user role");
+    }
+    return next();
+  };
+};
+
+export { createTokenPair, authentication, checkRole };

@@ -13,6 +13,7 @@ const HomePage = lazy(() => import('@/features/home/pages/HomePage'));
 const ProfilePage = lazy(() => import('@/features/user/pages/ProfilePage'));
 const CartPage = lazy(() => import('@/features/cart/pages/CartPage'));
 const ShopDashboard = lazy(() => import('@/features/shop/pages/Dashboard'));
+const UserListPage = lazy(() => import('@/features/admin/users/pages/UserListPage'));
 
 const withSuspense = (el) => <Suspense fallback={<Loader />}>{el}</Suspense>;
 
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
         element: withSuspense(<AdminLayout />),
         children: [
           { index: true, element: <HomePage /> },
+          { path: 'users', element: withSuspense(<UserListPage />) },
 
           // User feature
           { path: 'profile', element: <ProfilePage /> },

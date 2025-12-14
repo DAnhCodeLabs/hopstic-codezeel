@@ -6,18 +6,19 @@ const HEADER = {
   AUTHORIZATION: "authorization",
 };
 
-// --- Check API Key ---
+// --- Check API Key (Giữ nguyên) ---
 const apiKey = async (req, res, next) => {
   try {
-    const key = req.headers[HEADER.API_KEY]?.toString();
+    // Ưu tiên cho các route public như verify email
     if (req.originalUrl.includes("/verify")) {
       return next();
     }
+
+    const key = req.headers[HEADER.API_KEY]?.toString();
     if (!key) {
       return next(new ForbiddenError("Forbidden Error: Missing API Key"));
     }
 
-    // Check DB
     const objKey = await findById(key);
     if (!objKey) {
       return next(new ForbiddenError("Forbidden Error: Invalid API Key"));
@@ -26,22 +27,26 @@ const apiKey = async (req, res, next) => {
     req.objKey = objKey;
     return next();
   } catch (error) {
-    // Chú ý: Ở đây không dùng next(error) mà trả lỗi luôn để chặn ngay lập tức
     return next(error);
   }
 };
 
-// --- Check Quyền (Permissions) của Key ---
-const permission = (permission) => {
+// --- Check Quyền (Permissions) ---
+const permission = (...allowedPermissions) => {
   return (req, res, next) => {
     if (req.originalUrl.includes("/verify")) {
       return next();
     }
+
     if (!req.objKey.permissions) {
       return next(new ForbiddenError("Permission Denied"));
     }
 
-    const validPermission = req.objKey.permissions.includes(permission);
+    // Logic mới: Kiểm tra xem API Key của user có chứa ÍT NHẤT MỘT trong các quyền được phép không
+    const validPermission = req.objKey.permissions.some((permission) =>
+      allowedPermissions.includes(permission)
+    );
+
     if (!validPermission) {
       return next(new ForbiddenError("Permission Denied"));
     }

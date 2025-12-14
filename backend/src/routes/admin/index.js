@@ -1,10 +1,13 @@
 import express from "express";
-import adminController from "../../controllers/admin/admin.controller.js";
-import asyncHandler from "../../middlewares/asyncHandler.js";
+import userAdminRoute from "./user.admin.route.js";
+import shopAdminRoute from "./shop.admin.route.js";
 
 const router = express.Router();
 
-// POST /v1/api/admin/login
-router.post("/login", asyncHandler(adminController.login));
+// Định tuyến cho phần quản lý User
+router.use("/users", userAdminRoute);
+// Route quản lý Shop (Đã kích hoạt)
+router.use("/shops", shopAdminRoute);
 
-export default router; 
+
+export default router;

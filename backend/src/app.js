@@ -3,6 +3,7 @@ import helmet from "helmet";
 import compression from "compression";
 import cors from "cors";
 import "./dbs/init.mysql.js"; // Khởi động DB
+import "./models/associations.js";
 import router from "./routes/index.js";
 
 const app = express();

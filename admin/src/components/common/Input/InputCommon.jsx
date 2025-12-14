@@ -3,7 +3,7 @@ import { Input } from 'antd';
 
 const InputCommon = ({ className = '', variant = 'default', ...props }) => {
   const commonProps = {
-    size: 'large',
+    size: 'middle',
     autoComplete: 'off',
     className: `${className}`,
     ...props, // props này chứa cả rows, maxLength v.v..

@@ -82,6 +82,11 @@ const User = sequelize.define(
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+    points: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0, // Mặc định là 0 xu
+      allowNull: false,
+    },
   },
   {
     tableName: "User",

@@ -19,7 +19,7 @@ const SelectCommon = ({
       placeholder={placeholder}
       optionFilterProp="label"
       className={`w-full ${className}`}
-      size="large"
+      size="middle"
       options={options}
       filterOption={(input, option) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase())

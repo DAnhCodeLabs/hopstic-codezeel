@@ -15,7 +15,7 @@ const DatePickerCommon = ({
       {...props}
       format={DATE_FORMAT}
       placeholder={placeholder}
-      size="large"
+      size="middle"
       className={`${fullWidth ? 'w-full' : ''} ${className}`}
     />
   );
