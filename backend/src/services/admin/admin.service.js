@@ -24,12 +24,12 @@ class AdminService {
     const payload = {
       userId: "root-admin",
       email: rootEmail,
-      roles: ["0000"],
+      roles: ["ADMIN"],
     };
 
     const tokens = await createTokenPair(
       payload,
-      process.env.JWT_ACCESS_SECRET, 
+      process.env.JWT_ACCESS_SECRET,
       process.env.JWT_REFRESH_SECRET
     );
 
@@ -38,7 +38,7 @@ class AdminService {
         id: "root-admin",
         name: "System Root Administrator",
         email: rootEmail,
-        roles: ["0000"],
+        roles: ["ADMIN"],
       },
       tokens,
     };

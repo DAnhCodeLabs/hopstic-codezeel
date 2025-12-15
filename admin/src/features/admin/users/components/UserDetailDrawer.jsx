@@ -18,7 +18,7 @@ const UserDetailDrawer = ({ userId, onClose, open }) => {
     >
       {isLoading ? (
         <div className="flex justify-center mt-10">
-          <Spin size="large" />
+          <Spin size="default" />
         </div>
       ) : !user ? (
         <Empty description="Không tìm thấy dữ liệu" />
@@ -104,7 +104,7 @@ const UserDetailDrawer = ({ userId, onClose, open }) => {
                   className="border border-gray-200 p-3 rounded-md text-sm relative"
                 >
                   {addr.is_default && (
-                    <Tag color="cyan" className="absolute right-2 top-2">
+                    <Tag color="cyan" className="absolute right-2 top-2 mb-5!">
                       Mặc định
                     </Tag>
                   )}

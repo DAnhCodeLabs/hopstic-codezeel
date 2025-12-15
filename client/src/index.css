@@ -31,10 +31,10 @@ body {
 }
 
 @theme {
-  --color-primary: #dd3842;
+  --color-primary: #ee4d2d;
   --color-text-strong: #111111;
   --color-text-soft: #555555;
-  --color-text-hover: #dd3842;
+  --color-text-hover: #ee4d2d;
 }
 
 /* =========================

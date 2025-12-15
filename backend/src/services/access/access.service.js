@@ -1,4 +1,3 @@
-
 import crypto from "crypto";
 import User from "../../models/user.model.js";
 import KeyToken from "../../models/keytoken.model.js";
@@ -8,7 +7,7 @@ import {
   AuthFailureError,
   ForbiddenError,
 } from "../../core/error.response.js";
-import { sendEmailLinkVerify } from "../email.service.js";
+import { sendEmailLinkVerify, sendEmailTokenResetPassword } from "../email.service.js";
 
 class AccessService {
   // --- 1. ĐĂNG KÝ (SIGN UP) ---
@@ -98,7 +97,7 @@ class AccessService {
     const { accessToken, refreshToken } = await createTokenPair(
       { userId: foundUser.id, email: foundUser.email, roles: foundUser.roles },
       process.env.JWT_ACCESS_SECRET,
-      process.env.JWT_REFRESH_SECRET 
+      process.env.JWT_REFRESH_SECRET
     );
 
     // E. Lưu Refresh Token vào DB (KeyToken)
@@ -122,6 +121,59 @@ class AccessService {
         roles: foundUser.roles,
       },
       tokens: { accessToken, refreshToken },
+    };
+  };
+
+  static forgotPassword = async ({ email }) => {
+    // A. Check email
+    const user = await User.findOne({ where: { email } });
+    if (!user) throw new NotFoundError("Email không tồn tại trong hệ thống!");
+
+    // B. Tạo Token reset (Ngẫu nhiên)
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    const passwordResetExpires = Date.now() + 15 * 60 * 1000; // 15 phút
+
+    // C. Lưu vào DB (Tái sử dụng cột verify_token)
+    user.verify_token = resetToken;
+    user.verify_expire = passwordResetExpires;
+    await user.save();
+
+    // D. Gửi Email (Frontend URL: /auth/reset-password)
+    // Lưu ý: Port 3000 là của Frontend User
+    const resetLink = `http://localhost:3000/auth/reset-password?token=${resetToken}&email=${email}`;
+
+    await sendEmailTokenResetPassword({
+      toEmail: email,
+      linkVerify: resetLink,
+    });
+
+    return {
+      message: "Vui lòng kiểm tra email để đặt lại mật khẩu!",
+    };
+  };
+
+  // --- 5. ĐẶT LẠI MẬT KHẨU (Reset) ---
+  static resetPassword = async ({ email, token, newPassword }) => {
+    // A. Tìm User theo Email và Token
+    const user = await User.findOne({
+      where: { email, verify_token: token },
+    });
+
+    if (!user) throw new BadRequestError("Token không hợp lệ hoặc sai Email!");
+
+    // B. Check hết hạn
+    if (user.verify_expire < Date.now()) {
+      throw new BadRequestError("Token đã hết hạn! Vui lòng thử lại.");
+    }
+
+    // C. Cập nhật mật khẩu mới (Hooks trong Model sẽ tự hash)
+    user.password = newPassword;
+    user.verify_token = null; // Xóa token đã dùng
+    user.verify_expire = null;
+    await user.save();
+
+    return {
+      message: "Đặt lại mật khẩu thành công! Bạn có thể đăng nhập ngay.",
     };
   };
 }

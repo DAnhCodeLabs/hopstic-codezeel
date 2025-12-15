@@ -1,3 +1,4 @@
+// src/auth/checkAuth.js
 import { findById } from "../services/apikey.service.js";
 import { ForbiddenError } from "../core/error.response.js";
 
@@ -6,10 +7,16 @@ const HEADER = {
   AUTHORIZATION: "authorization",
 };
 
+const PERMISSIONS = {
+  ADMIN: "ADMIN",
+  SHOP: "SHOP",
+  USER: "USER",
+  PUBLIC: "PUBLIC",
+};
+
 // --- Check API Key (Giữ nguyên) ---
 const apiKey = async (req, res, next) => {
   try {
-    // Ưu tiên cho các route public như verify email
     if (req.originalUrl.includes("/verify")) {
       return next();
     }
@@ -32,19 +39,19 @@ const apiKey = async (req, res, next) => {
 };
 
 // --- Check Quyền (Permissions) ---
+// Giờ nhận vào các constant thay vì string số
 const permission = (...allowedPermissions) => {
   return (req, res, next) => {
     if (req.originalUrl.includes("/verify")) {
       return next();
     }
 
-    if (!req.objKey.permissions) {
+    if (!req.objKey?.permissions || !Array.isArray(req.objKey.permissions)) {
       return next(new ForbiddenError("Permission Denied"));
     }
 
-    // Logic mới: Kiểm tra xem API Key của user có chứa ÍT NHẤT MỘT trong các quyền được phép không
-    const validPermission = req.objKey.permissions.some((permission) =>
-      allowedPermissions.includes(permission)
+    const validPermission = req.objKey.permissions.some((perm) =>
+      allowedPermissions.includes(perm)
     );
 
     if (!validPermission) {
@@ -55,4 +62,5 @@ const permission = (...allowedPermissions) => {
   };
 };
 
-export { apiKey, permission };
+// Export cả constant để dùng ở router nếu cần
+export { apiKey, permission, PERMISSIONS };

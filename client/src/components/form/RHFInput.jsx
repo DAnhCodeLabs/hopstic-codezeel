@@ -20,7 +20,7 @@ const RHFInput = ({
           label={label}
           validateStatus={error ? 'error' : ''}
           help={error?.message}
-          className="mb-4 font-medium"
+          className="mb-4 font-normal"
           layout="vertical"
         >
           <InputCommon

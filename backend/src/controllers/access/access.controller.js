@@ -1,7 +1,6 @@
 import { Created, OK } from "../../core/success.response.js";
 import AccessService from "../../services/access/access.service.js";
 
-
 class AccessController {
   signUp = async (req, res, next) => {
     new Created({
@@ -22,6 +21,20 @@ class AccessController {
     new OK({
       message: "Login Success",
       metadata: await AccessService.login(req.body),
+    }).send(res);
+  };
+
+  forgotPassword = async (req, res, next) => {
+    new OK({
+      message: "Đã gửi email khôi phục",
+      metadata: await AccessService.forgotPassword(req.body),
+    }).send(res);
+  };
+
+  resetPassword = async (req, res, next) => {
+    new OK({
+      message: "Đặt lại mật khẩu thành công",
+      metadata: await AccessService.resetPassword(req.body),
     }).send(res);
   };
 }

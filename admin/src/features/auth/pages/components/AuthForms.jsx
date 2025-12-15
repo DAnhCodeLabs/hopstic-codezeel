@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Mail, Lock, ArrowRight } from 'lucide-react';
 
-import RHFInput from '@/components/common/form/RHFInput';
+import RHFInput from '@/components/common/Form/RHFInput';
 import ButtonCommon from '@/components/common/ButtonCommon';
 import useAuthStore from '@/stores/useAuthStore';
 import { useLocation, useNavigate } from 'react-router-dom';

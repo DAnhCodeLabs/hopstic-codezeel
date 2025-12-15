@@ -14,6 +14,7 @@ const ProfilePage = lazy(() => import('@/features/user/pages/ProfilePage'));
 const CartPage = lazy(() => import('@/features/cart/pages/CartPage'));
 const ShopDashboard = lazy(() => import('@/features/shop/pages/Dashboard'));
 const UserListPage = lazy(() => import('@/features/admin/users/pages/UserListPage'));
+const ShopListPage = lazy(() => import('@/features/admin/shops/pages/ShopListPage'));
 
 const withSuspense = (el) => <Suspense fallback={<Loader />}>{el}</Suspense>;
 
@@ -27,13 +28,14 @@ const router = createBrowserRouter([
   // ===== ADMIN – FULL SYSTEM =====
   {
     path: '/admin',
-    element: <ProtectedRoute allowedRoles={['0000']} />,
+    element: <ProtectedRoute allowedRoles={['ADMIN']} />,
     children: [
       {
         element: withSuspense(<AdminLayout />),
         children: [
           { index: true, element: <HomePage /> },
           { path: 'users', element: withSuspense(<UserListPage />) },
+          { path: 'shops', element: withSuspense(<ShopListPage />) },
 
           // User feature
           { path: 'profile', element: <ProfilePage /> },

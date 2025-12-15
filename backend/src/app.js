@@ -4,7 +4,7 @@ import compression from "compression";
 import cors from "cors";
 import "./dbs/init.mysql.js"; // Khởi động DB
 import "./models/associations.js";
-import router from "./routes/index.js";
+import apiRouter from "./routes/api.routes.js";
 
 const app = express();
 
@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // --- 2. Init Routes ---
-app.use("/", router);
+app.use("/", apiRouter);
 
 // --- 3. Error Handling (QUAN TRỌNG) ---
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Space, Tag, Tooltip, Popconfirm, Button } from 'antd';
 import { Eye, Lock, Unlock } from 'lucide-react';
 import dayjs from 'dayjs';
-import AppTable from '@/components/common/table/AppTable';
+import AppTable from '@/components/common/Table/AppTable';
 
 const UserListTable = ({
   dataSource,

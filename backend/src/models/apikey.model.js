@@ -17,7 +17,7 @@ const ApiKey = sequelize.define(
       defaultValue: true, // true: active, false: block
     },
     permissions: {
-      type: DataTypes.JSON, // Lưu mảng quyền: ['0000', '0001']
+      type: DataTypes.JSON,
       defaultValue: [],
     },
   },

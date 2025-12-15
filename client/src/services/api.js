@@ -1,5 +1,5 @@
 import axiosClient from './axios.customize';
-import { message } from 'antd'; 
+import { message } from 'antd';
 
 const request = async (method, url, data, options = {}) => {
   const defaultOptions = {
@@ -38,5 +38,6 @@ export const getData = (url, params, options) => request('get', url, params, opt
 export const postData = (url, data, options) => request('post', url, data, options);
 
 export const putData = (url, data, options) => request('put', url, data, options);
+export const patchData = (url, data, options) => request('patch', url, data, options);
 
 export const deleteData = (url, options) => request('delete', url, {}, options);

@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import { assets } from '@/assets/assets';
 
 // Import Components
-import ButtonCommon from '@/components/common/ButtonCommon';
 import InputCommon from '@/components/common/InputCommon';
 import HeaderAuth from './HeaderAuth';
 import HeaderIcons from './HeaderIcons';
-import HeaderNav from './HeaderNav';
 
 export default function HeaderMain() {
   return (
@@ -42,9 +40,6 @@ export default function HeaderMain() {
             <HeaderIcons />
           </div>
         </div>
-
-        {/* BOTTOM SECTION: Navigation */}
-        <HeaderNav />
       </div>
     </div>
   );

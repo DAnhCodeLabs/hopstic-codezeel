@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import UserListFilter from '../components/UserListFilter';
 import UserListTable from '../components/UserListTable';
-import { useTable } from '@/components/common/table/useTable';
+import { useTable } from '@/components/common/Table/useTable';
 import { useUpdateUserStatus, useUsers } from '../../hooks/useAdminUsers';
 import UserDetailDrawer from '../components/UserDetailDrawer';
 

@@ -3,7 +3,7 @@ import { Card, Typography } from 'antd';
 import { Search } from 'lucide-react';
 import InputCommon from '@/components/common/Input/InputCommon';
 import SelectCommon from '@/components/common/Input/SelectCommon';
-import FormGrid from '@/components/common/form/FormGrid';
+import FormGrid from '@/components/common/Form/FormGrid';
 
 const { Title } = Typography;
 

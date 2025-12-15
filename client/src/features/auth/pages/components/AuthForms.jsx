@@ -7,7 +7,7 @@ import { Mail, Lock, User, ArrowRight, CheckCircle } from 'lucide-react';
 import RHFInput from '@/components/form/RHFInput';
 import ButtonCommon from '@/components/common/ButtonCommon';
 import useAuthStore from '@/stores/useAuthStore';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api/authApi';
 
 // --- ZOD SCHEMA Y NHƯ CŨ ---
@@ -75,9 +75,12 @@ export const LoginForm = () => {
       />
 
       <div className="flex justify-end mb-4">
-        <a href="#" className="text-xs text-gray-500 hover:text-red-600 transition-colors">
+        <Link
+          to={'/auth/forgot-password'}
+          className="text-xs text-gray-500 hover:text-red-600 transition-colors"
+        >
           Quên mật khẩu?
-        </a>
+        </Link>
       </div>
 
       <ButtonCommon
